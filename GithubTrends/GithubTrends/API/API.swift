@@ -9,20 +9,22 @@
 import UIKit
 
 protocol APIProtocol {
-    
     func recievedData(data: AnyObject)
 }
 
 class API: NSObject {
     var delegate : APIProtocol?
-    var urlString : String = "https://api.github.com/search/repositories?q=java&sort=stars&order=desc"
+    var urlString : String = "https://api.github.com/search/repositories?q=css&sort=stars&order=desc"
+    
+    // MARK: Init With delegate
     
     init(withDelegate delegate: APIProtocol) {
         self.delegate = delegate
     }
     
+    // MARK: Fetch JSON data from Server
+    
     func fetchJSONData() {
-        
         let url = NSURL(string: self.urlString)
         let request = NSURLRequest( URL: url!)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -35,16 +37,17 @@ class API: NSObject {
                 do {
                     if let json: Dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as? [String: AnyObject]
                     {
-                        self.sendDataToDelegate(json["items"]!)
+                        self.sendDataToDelegate(json)
                     }
                 } catch {
                     print("error in JSONSerialization")
                 }
-                
             }
         }
         task.resume()
     }
+    
+    // MARK: send recieved data
     
     func sendDataToDelegate(data: AnyObject)  {
         self.delegate!.recievedData(data)

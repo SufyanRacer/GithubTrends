@@ -29,6 +29,8 @@ class ProjectDetailsViewController: UIViewController {
         self.loadDetials()
     }
     
+    // MARK: Load Project details
+    
     func loadDetials()  {
         self.title = self.projectViewModel?.projectNameString
         self.userName.text = self.projectViewModel?.userNameString
@@ -38,6 +40,8 @@ class ProjectDetailsViewController: UIViewController {
         self.forkCount.text = self.projectViewModel?.forksCountString
         self.loadImageInBackground()
     }
+    
+    // MARK: Load image on background
     
     func loadImageInBackground()  {
         
@@ -52,12 +56,6 @@ class ProjectDetailsViewController: UIViewController {
             }
         })
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation
